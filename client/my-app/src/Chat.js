@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React, {useState , useEffect} from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chat({ socket, username, room }) {
-  const [currentMessage, setCurrentMessage] = React.useState("");
-  const [messageList, setMessageList] = React.useState([]);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -16,7 +16,6 @@ function Chat({ socket, username, room }) {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
-
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
